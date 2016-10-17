@@ -13,6 +13,10 @@ class Window:
         self.dx = (self.upRight[1] - self.lowLeft[1]) / self.num
         self.dy = (self.upRight[0] - self.lowLeft[0]) / self.num
 
+    def update(self):
+        self.dx = (self.upRight[1] - self.lowLeft[1]) / self.num
+        self.dy = (self.upRight[0] - self.lowLeft[0]) / self.num
+
 
 def print_grid(grid):
     for row in range(len(grid)):
@@ -57,19 +61,17 @@ class Method:
         return [[0.0 for i in range(win.num + 1)] for j in range(win.num + 1)]
 
     def solve(self, win, eps):
-    	print("Started solving")
-    	prev = self.init_grid(win)
-    	cur = self.proceed_rhs(prev, win)
-    	dis_prev = self.discrepancy(prev, win)
-    	dis_cur = self.discrepancy(cur, win)
-    	diff = abs(dis_cur - dis_prev)
-    	counter = 1
-    	while diff > eps:
-    		prev = cur
-    		cur = self.proceed_rhs(prev, win)
-    		dis_prev = self.discrepancy(prev, win)
-    		dis_cur = self.discrepancy(cur, win)
-    		diff = abs(dis_prev - dis_cur)
-    		counter += 1
-    	print("Solved")
-    	return cur, counter
+        prev = self.init_grid(win)
+        cur = self.proceed_rhs(prev, win)
+        dis_prev = self.discrepancy(prev, win)
+        dis_cur = self.discrepancy(cur, win)
+        diff = abs(dis_cur - dis_prev)
+        counter = 1
+        while diff > eps:
+            prev = cur
+            cur = self.proceed_rhs(prev, win)
+            dis_prev = self.discrepancy(prev, win)
+            dis_cur = self.discrepancy(cur, win)
+            diff = abs(dis_prev - dis_cur)
+            counter += 1
+        return cur, counter
