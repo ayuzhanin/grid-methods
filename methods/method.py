@@ -51,8 +51,8 @@ class Method:
             for col in (range(len(grid))[1:-1]):
                 x = win.dx * col + win.lowLeft[0]
                 y = win.dy * row + win.lowLeft[1]
-                lh_uh = (grid[row - 1][col] - 2 * grid[row][col] + grid[row + 1][col]) / (win.dx * win.dy) + \
-                        (grid[row][col - 1] - 2 * grid[row][col] + grid[row][col + 1]) / (win.dx * win.dy)
+                lh_uh = (grid[row - 1][col] + grid[row + 1][col] + grid[row][col - 1] + grid[row][col + 1] -
+                         4 * grid[row][col]) / (win.dx * win.dy)
                 dis = abs(- lh_uh - win.f(x, y))
                 maxima = max(dis, maxima)
         return maxima
